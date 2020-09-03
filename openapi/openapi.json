@@ -1,0 +1,86 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "IsItRunning",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https"
+    }
+  ],
+  "tags": [
+    {
+      "name": "servers",
+      "description": "Server API calls"
+    }
+  ],
+  "paths": {
+    "/servers": {
+      "get": {
+        "tags": [
+          "servers"
+        ],
+        "parameters": [
+          {
+            "name": "servers",
+            "in": "query",
+            "description": "servers to be checked",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/server"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/serverStatus"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "server": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "serverStatus": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "number"
+          },
+          "valid_to": {
+            "type": "string"
+          },
+          "valid_days": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}

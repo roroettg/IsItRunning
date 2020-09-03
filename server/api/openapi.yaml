@@ -1,0 +1,59 @@
+openapi: 3.0.0
+info:
+  title: IsItRunning
+  version: 1.0.0
+servers:
+- url: https
+tags:
+- description: Server API calls
+  name: servers
+paths:
+  /servers:
+    get:
+      operationId: serversGET
+      parameters:
+      - description: servers to be checked
+        explode: true
+        in: query
+        name: servers
+        required: true
+        schema:
+          items:
+            $ref: '#/components/schemas/server'
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/serverStatus'
+                type: array
+          description: Ok
+      tags:
+      - servers
+      x-eov-operation-handler: controllers/ServersController
+components:
+  schemas:
+    server:
+      properties:
+        url:
+          type: string
+      type: object
+    serverStatus:
+      example:
+        valid_to: valid_to
+        valid_days: 6.027456183070403
+        url: url
+        statusCode: 0.8008281904610115
+      properties:
+        url:
+          type: string
+        statusCode:
+          type: number
+        valid_to:
+          type: string
+        valid_days:
+          type: number
+      type: object
